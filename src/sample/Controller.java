@@ -40,6 +40,12 @@ public class Controller {
         gc.fillPolygon(aa.get_x_points(), aa.get_y_points(), aa.get_num_points());
     }
 
+    private void drawArrowLine(GraphicsContext gc, int x1, int y1, int x2, int y2) {
+        gc.strokeLine(x1, y1, x2, y2);
+        Arrow sa = new Arrow(false, x2, y2);
+        gc.fillPolygon(sa.get_x_points(), sa.get_y_points(), sa.get_num_points());
+    }
+
     public void drawTest1() {
 
         Canvas c = new Canvas(918.0, 483.0);
@@ -47,6 +53,7 @@ public class Controller {
 
         System.out.println("hello...");
 
+        // the corners of the canvas
         GC.strokeText("TL", 0, 10);
         GC.strokeText("TR", 900, 10);
         GC.strokeText("BL", 0, 477);
@@ -54,29 +61,18 @@ public class Controller {
 
         GC.setLineWidth(3.0);
 
+        drawArrowLine(GC, 100, 258, 200, 258);
         //q0
         drawAcceptState(GC, 208, 208, 100);
         drawTransistionToItself(GC, 208, 208, 100);
+        drawArrowLine(GC, 318, 258, 400, 258);
         //q1
         drawAcceptState(GC, 408, 208, 100);
         drawTransistionToItself(GC, 408, 208, 100);
+        drawArrowLine(GC, 516, 258, 607, 258);
         // q2
         drawRejectState(GC,608, 208, 100);
         drawTransistionToItself(GC, 608, 208, 100);
-
-        // draw straight lines with arrows
-        GC.strokeLine(100, 258, 200, 258);
-        Arrow sa1 = new Arrow(false, 200, 258);
-        GC.fillPolygon(sa1.get_x_points(), sa1.get_y_points(), sa1.get_num_points());
-
-        GC.strokeLine(318, 258, 400, 258);
-        Arrow sa2 = new Arrow(false, 400, 258);
-        GC.fillPolygon(sa2.get_x_points(), sa2.get_y_points(), sa2.get_num_points());
-
-        GC.strokeLine(516, 258, 607, 258);
-        Arrow sa3 = new Arrow(false, 607, 258);
-        GC.fillPolygon(sa3.get_x_points(), sa3.get_y_points(), sa3.get_num_points());
-
 
         VBoxForCanvas.getChildren().remove(0);
         VBoxForCanvas.getChildren().add(0, c);
