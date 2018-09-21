@@ -86,12 +86,17 @@
                             <VBox.margin>
                                 <Insets left="15.0" top="15.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" text="Test 2">
+                        <Button mnemonicParsing="false" text="Test 2" onAction="#drawTest2">
                             <VBox.margin>
                                 <Insets left="15.0" top="15.0" />
                             </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Test 3">
+                        <Button mnemonicParsing="false" text="Test 3" onAction="#drawTest3">
+                            <VBox.margin>
+                                <Insets left="15.0" top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" text=" Clear " onAction="#clearCanvas">
                             <VBox.margin>
                                 <Insets left="15.0" top="15.0" />
                             </VBox.margin>

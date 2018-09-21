@@ -32,7 +32,7 @@ public class Arrow {
     }
 
     private void set_x_points_line(int x) {
-        this.x_points = new double[]{x, x-15, x-15};
+        this.x_points = new double[]{x+4, x-12, x-12};
     }
 
     private void set_y_points_line(int y) {
