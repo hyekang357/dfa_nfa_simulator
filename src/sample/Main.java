@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("DFA/NFA Simulator");
-        primaryStage.setScene(new Scene(root, 1280, 800, Color.YELLOW));
+        primaryStage.setScene(new Scene(root, 1280, 800, Color.GREY));
         primaryStage.show();
     }
 
