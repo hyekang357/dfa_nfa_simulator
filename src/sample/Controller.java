@@ -112,9 +112,103 @@ public class Controller {
         Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "1");
         Arrow aa1 = new Arrow(true, 208, 208, "0");
         Arrow aa2 = new Arrow(true, 408, 208, "1");
+        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "0");
+        Arrow sa4 = new Arrow(true, 608, 208, "0,1");
+        
 
         State q0 = new State(true, 208, 208, 100, "q0");
         State q1 = new State(true, 408, 208, 100, "q1");
+        State q2 = new State(false, 608, 208, 100, "q2");
+
+        // Draw the objects
+        drawArrowLine(sa1);
+        //q0
+        drawState(q0);
+        drawArrowToItself(aa1);
+        // draw q0 -> q1 arrow
+        drawArrowLine(sa2);
+        //q1
+        drawState(q1);
+        drawArrowToItself(aa2);
+        // draw q1 -> q2 arrow
+        drawArrowLine(sa3);
+        //q2
+        drawState(q2);
+        drawArrowToItself(sa4);
+
+ 
+
+        VBoxForCanvas.getChildren().remove(0);
+        VBoxForCanvas.getChildren().add(0, C);
+    }
+
+    public void drawTest2() {
+        // Initialize canvas
+        initializeCanvas();
+
+        // Create objects
+     // Create objects
+        Arrow sa0 = new Arrow(false, 100, 258, 196, 258); //start  horizontal
+        Arrow sa1 = new Arrow(false, 318, 258, 396, 258, "b"); // q0 -> q1 horizontal
+        Arrow sa2 = new Arrow(false, 450, 200, 450, 122, "b"); // q1 -> q2
+        Arrow sa3 = new Arrow(false, 466, 118, 466, 196, "b"); // q2 -> q1
+        Arrow sa4 = new Arrow(false, 518, 258, 596, 258, "a"); // q1 -> q3 horizontal
+        Arrow sa5 = new Arrow(false, 650, 200, 650, 122, "a"); // q3 -> q4
+        Arrow sa6 = new Arrow(false, 666, 118, 666, 196, "a"); // q4 -> q3
+        
+        State q0 = new State(false, 208, 208, 100, "q0");
+        State q1 = new State(true, 408, 208, 100, "q1");
+        State q2 = new State(false, 408, 10, 100, "q2");
+        State q3 = new State(false, 608, 208, 100, "q3");
+        State q4 = new State(true, 608, 10, 100, "q4");
+
+
+        // Draw the objects
+        drawArrowLine(sa0);
+        
+        //q0
+        drawState(q0);
+        drawArrowLine(sa1);
+        
+        //q1
+        drawState(q1);
+        drawArrowLine(sa2);
+        drawArrowLine(sa4);
+        
+        //q2
+        drawState(q2);
+        drawArrowLine(sa3);
+        
+        //q3
+        drawState(q3);
+        drawArrowLine(sa5);
+        
+        //q4
+        drawState(q4);
+        drawArrowLine(sa6);
+        
+        VBoxForCanvas.getChildren().remove(0);
+        VBoxForCanvas.getChildren().add(0, C);
+    }
+
+    public void drawTest3() {
+
+        System.out.println("Drawing Test 3...");
+
+        // Initialize canvas
+        initializeCanvas();
+
+        // Create objects
+        Arrow sa1 = new Arrow(false, 100, 258, 196, 258);
+        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "E");
+        Arrow aa1 = new Arrow(true, 208, 208, "0");
+        Arrow aa2 = new Arrow(true, 408, 208, "1");
+        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "0");
+        
+
+        State q0 = new State(false, 208, 208, 100, "q0");
+        State q1 = new State(false, 408, 208, 100, "q1");
+        State q2 = new State(true, 608, 208, 100, "q2");
 
 
         // Draw the objects
@@ -127,32 +221,12 @@ public class Controller {
         //q1
         drawState(q1);
         drawArrowToItself(aa2);
+        // draw q1 -> q2 arrow
+        drawArrowLine(sa3);
+        //q2
+        drawState(q2);
 
-        VBoxForCanvas.getChildren().remove(0);
-        VBoxForCanvas.getChildren().add(0, C);
-    }
-
-    public void drawTest2() {
-
-        // Initialize canvas
-        initializeCanvas();
-
-        // TODO: Create objects
-
-        // TODO: Draw objects
-
-        VBoxForCanvas.getChildren().remove(0);
-        VBoxForCanvas.getChildren().add(0, C);
-    }
-
-    public void drawTest3() {
-
-        // Initialize canvas
-        initializeCanvas();
-
-        // TODO: Create objects
-
-        // TODO: Draw objects
+ 
 
         VBoxForCanvas.getChildren().remove(0);
         VBoxForCanvas.getChildren().add(0, C);
