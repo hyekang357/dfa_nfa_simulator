@@ -135,11 +135,6 @@
                 <HBox>
                     <children>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Back">
-                            <HBox.margin>
-                                <Insets right="10.0" />
-                            </HBox.margin>
-                        </Button>
                         <Button mnemonicParsing="false" text="Next">
                             <HBox.margin>
                                 <Insets left="10.0" />
