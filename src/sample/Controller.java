@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,8 +23,7 @@ public class Controller {
     public TextArea TextAreaOutput;
     public VBox VBoxForCanvas;
 
-    public Arrow[] arrows;
-    public State[] states;
+    public Test1 Test;
 
     Canvas C;
     GraphicsContext GC;
@@ -34,10 +34,6 @@ public class Controller {
         GC = C.getGraphicsContext2D();
         GC.setLineWidth(3.0);
         GC.setFont(new Font(16));
-//        GC.strokeText("TL", 0, 10);
-//        GC.strokeText("TR", 900, 10);
-//        GC.strokeText("BL", 0, 477);
-//        GC.strokeText("BR", 900, 477);
     }
 
     private void drawState(State q) {
@@ -107,11 +103,11 @@ public class Controller {
         // Initialize canvas
         initializeCanvas();
 
-        // Create objects
-        Arrow sa1 = new Arrow(false, 100, 258, 196, 258);
-        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "1");
-        Arrow aa1 = new Arrow(true, 208, 208, "0");
-        Arrow aa2 = new Arrow(true, 408, 208, "1");
+        // Create drawing components
+        Arrow sa1 = new Arrow(false, 100, 258, 196, 258, "q0");
+        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "q0", "q1", "1");
+        Arrow aa1 = new Arrow(true, 208, 208, "q0", "0");
+        Arrow aa2 = new Arrow(true, 408, 208, "q1", "1");
 
         State q0 = new State(true, 208, 208, 100, "q0");
         State q1 = new State(true, 408, 208, 100, "q1");
@@ -127,6 +123,15 @@ public class Controller {
         //q1
         drawState(q1);
         drawArrowToItself(aa2);
+
+        // Create Test object
+        ArrayList<Arrow> arrows = new ArrayList<>();
+        arrows.addAll(Arrays.asList(sa1, sa2, aa1, aa2));
+        ArrayList<State> states = new ArrayList<>();
+        states.addAll(Arrays.asList(q0, q1));
+
+        this.Test = new Test1(arrows, states, "0");
+
 
         VBoxForCanvas.getChildren().remove(0);
         VBoxForCanvas.getChildren().add(0, C);
@@ -165,6 +170,19 @@ public class Controller {
     }
 
     public void clickNext() {
+        // if complete, highlight last state
+        if (this.Test.get_complete()) {
+
+        }
+        // if not complete, highlight next arrow
+        else {
+            Arrow next = this.Test.evaluateNext();
+            highlightArrow(next);
+        }
+        VBoxForCanvas.getChildren().remove(0);
+        VBoxForCanvas.getChildren().add(0, C);
+
+
 
 
     }

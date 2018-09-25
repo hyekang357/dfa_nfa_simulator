@@ -43,6 +43,4 @@ public class State {
     public String get_text() {
         return this.text;
     }
-
-
 }
