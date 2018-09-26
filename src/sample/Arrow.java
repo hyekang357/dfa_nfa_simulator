@@ -7,14 +7,13 @@ public class Arrow {
         int y1;
         int y2;
         String text;
+        
 
         double[] x_points;
         double[] y_points;
         final int num_points = 3;
-
-        String from_state;
-        String to_state;
-
+        char direction;
+        
         /*
          * boolean arc_arrow = true if the arrow goes at the end of an arc-line
          *                     false if the arrow goes at the end of the straight line
@@ -22,12 +21,14 @@ public class Arrow {
          * int y = y used to draw arc-line; if straight line use y2
          *
          */
-    public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2, String to_state){
+    public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2){
             this.x1 = x1;
             this.x2 = x2;
             this.y1 = y1;
             this.y2 = y2;
-
+            
+            this.setArrowDirection(this.x1, this.y1, this.x2, this.y2);
+            	
             if (arc_arrow) {
                 this.set_x_points_arc(this.x2);
                 this.set_y_points_arc(this.y2);
@@ -36,15 +37,15 @@ public class Arrow {
                 this.set_y_points_line(this.y2);
             }
             this.text = "";
-            this.from_state = "start";
-            this.to_state = to_state;
     }
 
-    public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2, String from_state, String to_state, String text){
+    public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2, String text){
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
         this.y2 = y2;
+        
+        this.setArrowDirection(this.x1, this.y1, this.x2, this.y2);
 
         if (arc_arrow) {
             this.set_x_points_arc(this.x2);
@@ -53,12 +54,10 @@ public class Arrow {
             this.set_x_points_line(this.x2);
             this.set_y_points_line(this.y2);
         }
-        this.from_state = from_state;
-        this.to_state = to_state;
         this.text = text;
     }
 
-    public Arrow(boolean arc_arrow, int x1, int y1, String from_state, String text){
+    public Arrow(boolean arc_arrow, int x1, int y1, String text){
         this.x1 = x1+5;
         this.y1 = y1-78;
 
@@ -70,10 +69,19 @@ public class Arrow {
             this.set_y_points_line(this.y1);
         }
         this.text = text;
-        this.from_state = from_state;
-        this.to_state = from_state;
     }
 
+     private void setArrowDirection (int x1, int y1, int x2, int y2){
+    	 if (x1 == x2 && y1 < y2)
+    		 this.direction = 'D';
+    	 else if (x1 == x2 && y1 > y2)
+    		 this.direction = 'U';
+    	 else if (y1 == y2 && x1 < x2)
+    		 this.direction = 'R';
+    	 else
+    		 this.direction = 'L';
+    }
+    
     private void set_x_points_arc(int x) {
         this.x_points = new double[]{x+104, x+86, x+86};
     }
@@ -83,11 +91,25 @@ public class Arrow {
     }
 
     private void set_x_points_line(int x) {
-        this.x_points = new double[]{x+4, x-12, x-12};
+    	if(this.direction == 'R')
+    		this.x_points = new double[]{x+4, x-12, x-12};
+    	else if (this.direction == 'U') 
+    		this.x_points = new double[] {x, x-10, x+10};
+    	else if (this.direction == 'D')
+    		this.x_points = new double[] {x, x-10, x+10};
+    	else
+    		this.x_points = new double[] {x-4, x+12, x+12};
     }
-
+    
     private void set_y_points_line(int y) {
-        this.y_points = new double[]{y, y-10, y+10};
+        if(this.direction == 'R')
+        	this.y_points = new double[]{y, y-10, y+10};
+        else if (this.direction == 'U')
+        	this.y_points = new double[] {y-4, y+12, y+12};
+        else if (this.direction == 'D')
+        	this.y_points = new double [] {y+4, y-12, y-12};
+        else
+        	this.y_points = new double [] {y, y-10, y+10};
     }
 
     public double[] get_x_points() {
@@ -100,6 +122,10 @@ public class Arrow {
 
     public int get_num_points() {
         return this.num_points;
+    }
+    
+    public char get_direction() {
+    	return this.direction;
     }
 
     public int get_x1() {
@@ -120,14 +146,6 @@ public class Arrow {
 
     public String get_text() {
         return this.text;
-    }
-
-    public String get_from_state() {
-        return this.from_state;
-    }
-
-    public String get_to_state() {
-        return this.to_state;
     }
 
 
