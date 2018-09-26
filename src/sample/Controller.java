@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +22,8 @@ public class Controller {
     public TextArea TextAreaOutput;
     public VBox VBoxForCanvas;
 
-    public Test1 Test;
+    public Arrow[] arrows;
+    public State[] states;
 
     Canvas C;
     GraphicsContext GC;
@@ -34,6 +34,10 @@ public class Controller {
         GC = C.getGraphicsContext2D();
         GC.setLineWidth(3.0);
         GC.setFont(new Font(16));
+//        GC.strokeText("TL", 0, 10);
+//        GC.strokeText("TR", 900, 10);
+//        GC.strokeText("BL", 0, 477);
+//        GC.strokeText("BR", 900, 477);
     }
 
     private void drawState(State q) {
@@ -80,7 +84,15 @@ public class Controller {
         if (!a.get_text().isEmpty()) {
             GC.setLineWidth(1.0);
             GC.setFont(new Font("Arial", 24));
-            GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)-20);
+            if(a.get_direction() == 'R')
+                GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)-20);
+            else if(a.get_direction() == 'U')
+                GC.fillText(a.get_text(), (((a.get_x1()+a.get_x2())/2)-30), (a.get_y1()+a.get_y2()+10)/2);
+            else if(a.get_direction() == 'D')
+                GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()+30)/2, ((a.get_y1()+a.get_y2())/2)+8);
+            else
+            	GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)+20);
+            
             GC.setLineWidth(3.0);
         }
     }
@@ -104,12 +116,13 @@ public class Controller {
         initializeCanvas();
 
         // Create objects
-        Arrow sa1 = new Arrow(false, 100, 258, 196, 258, "q0");
-        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "q0", "q1", "1");
-        Arrow aa1 = new Arrow(true, 208, 208, "q0", "0");
-        Arrow aa2 = new Arrow(true, 408, 208, "q1", "1");
-        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "q1", "q2", "0");
-        Arrow aa3 = new Arrow(true, 608, 208, "q2", "0,1");
+        Arrow sa1 = new Arrow(false, 100, 258, 196, 258);
+        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "1");
+        Arrow aa1 = new Arrow(true, 208, 208, "0");
+        Arrow aa2 = new Arrow(true, 408, 208, "1");
+        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "0");
+        Arrow sa4 = new Arrow(true, 608, 208, "0,1");
+        
 
         State q0 = new State(true, 208, 208, 100, "q0");
         State q1 = new State(true, 408, 208, 100, "q1");
@@ -129,35 +142,28 @@ public class Controller {
         drawArrowLine(sa3);
         //q2
         drawState(q2);
-        drawArrowToItself(aa3);
+        drawArrowToItself(sa4);
 
  
-
-        // Create Test object
-        ArrayList<Arrow> arrows = new ArrayList<>();
-        arrows.addAll(Arrays.asList(sa1, sa2, aa1, aa2));
-        ArrayList<State> states = new ArrayList<>();
-        states.addAll(Arrays.asList(q0, q1));
-
-        this.Test = new Test1(arrows, states, "0");
-
 
         VBoxForCanvas.getChildren().remove(0);
         VBoxForCanvas.getChildren().add(0, C);
     }
 
     public void drawTest2() {
+        System.out.println("Drawing Test 2...");
         // Initialize canvas
         initializeCanvas();
 
         // Create objects
-        Arrow sa0 = new Arrow(false, 100, 258, 196,  258, "q0"); //start  horizontal
-        Arrow sa1 = new Arrow(false, 318, 258, 396, 258, "q0", "q1", "b"); // q0 -> q1 horizontal
-        Arrow sa2 = new Arrow(false, 450, 200, 450, 122, "q1", "q2", "b"); // q1 -> q2
-        Arrow sa3 = new Arrow(false, 466, 118, 466, 196, "q2", "q1", "b"); // q2 -> q1
-        Arrow sa4 = new Arrow(false, 518, 258, 596, 258, "q1", "q3","a"); // q1 -> q3 horizontal
-        Arrow sa5 = new Arrow(false, 650, 200, 650, 122, "q3", "q4","a"); // q3 -> q4
-        Arrow sa6 = new Arrow(false, 666, 118, 666, 196, "q4", "q3", "a"); // q4 -> q3
+     // Create objects
+        Arrow sa0 = new Arrow(false, 100, 258, 196, 258); //start  horizontal
+        Arrow sa1 = new Arrow(false, 318, 258, 396, 258, "b"); // q0 -> q1 horizontal
+        Arrow sa2 = new Arrow(false, 450, 200, 450, 122, "b"); // q1 -> q2
+        Arrow sa3 = new Arrow(false, 466, 118, 466, 196, "b"); // q2 -> q1
+        Arrow sa4 = new Arrow(false, 518, 258, 596, 258, "a"); // q1 -> q3 horizontal
+        Arrow sa5 = new Arrow(false, 650, 200, 650, 122, "a"); // q3 -> q4
+        Arrow sa6 = new Arrow(false, 666, 118, 666, 196, "a"); // q4 -> q3
         
         State q0 = new State(false, 208, 208, 100, "q0");
         State q1 = new State(true, 408, 208, 100, "q1");
@@ -202,11 +208,11 @@ public class Controller {
         initializeCanvas();
 
         // Create objects
-        Arrow sa1 = new Arrow(false, 100, 258, 196, 258, "q0");
-        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "q0", "q1", "E");
-        Arrow aa1 = new Arrow(true, 208, 208, "q0", "0");
-        Arrow aa2 = new Arrow(true, 408, 208, "q1", "1");
-        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "q1", "q2", "0");
+        Arrow sa1 = new Arrow(false, 100, 258, 196, 258);
+        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, "E");
+        Arrow aa1 = new Arrow(true, 208, 208, "0");
+        Arrow aa2 = new Arrow(true, 408, 208, "1");
+        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, "0");
         
 
         State q0 = new State(false, 208, 208, 100, "q0");
@@ -242,19 +248,6 @@ public class Controller {
     }
 
     public void clickNext() {
-        // if complete, highlight last state
-        if (this.Test.get_complete()) {
-
-        }
-        // if not complete, highlight next arrow
-        else {
-            Arrow next = this.Test.evaluateNext();
-            highlightArrow(next);
-        }
-        VBoxForCanvas.getChildren().remove(0);
-        VBoxForCanvas.getChildren().add(0, C);
-
-
 
 
     }
