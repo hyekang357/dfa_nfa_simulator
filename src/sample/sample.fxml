@@ -115,7 +115,7 @@
                 <Insets bottom="40.0" />
             </BorderPane.margin>
             <children>
-                <Canvas height="483.0" width="918.0" />
+                <Canvas fx:id="myCanvas" height="483.0" width="918.0" />
                 <HBox style="-fx-border-color: #d2d2d2; -fx-border-style: solid none solid none; -fx-border-width: 1; -fx-background-color: #e5e5e5;">
                     <children>
                         <Region prefWidth="20.0" />
