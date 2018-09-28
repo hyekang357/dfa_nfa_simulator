@@ -29,7 +29,7 @@ public class Test1 {
             Arrow starting_arrow = get_starting_arrow();
             // set the curr_state
             this.curr_state = starting_arrow.get_to_state();
-            System.out.println("Current state is set to : " + this.curr_state.get_text());
+            System.out.println("Current state is set to: " + this.curr_state.get_text());
             // set complete
             this.complete = check_complete(this.input, this.input_index);
             this.input_index++;
@@ -43,8 +43,8 @@ public class Test1 {
             // if next_arrow is not null set curr_state, increment input_index, set_complete
             if (next_arrow != null) {
                 this.curr_state = next_arrow.get_to_state();
-                this.input_index++;
                 this.complete = check_complete(this.input, this.input_index);
+                this.input_index++;
                 return next_arrow;
             } else {
                 // if next_arrow not found then implicit reject state

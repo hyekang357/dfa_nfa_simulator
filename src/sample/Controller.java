@@ -34,6 +34,7 @@ public class Controller {
         GC.clearRect(0, 0, 918.0, 483.0);
         GC.setLineWidth(DWidth);
         GC.setFont(new Font(16));
+        TextAreaOutput.setText("");
     }
     
     private void drawState(State q) {
@@ -132,39 +133,36 @@ public class Controller {
         // Create states
         State q0 = new State(true, 208, 208, 100, "q0");
         State q1 = new State(true, 408, 208, 100, "q1");
-        State q2 = new State(false, 608, 208, 100, "q2");
 
         // Create arrows
-        Arrow sa1 = new Arrow(false, 100, 258, 196, 258, q0);
-        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "1");
-        Arrow aa1 = new Arrow(true, 208, 208, q0, "0");
-        Arrow aa2 = new Arrow(true, 408, 208, q1, "1");
-        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, q1, q2, "0");
-        Arrow aa3 = new Arrow(true, 608, 208, q2, "0,1");
+        Arrow a0 = new Arrow(false, 100, 258, 196, 258, q0);
+        Arrow a1 = new Arrow(true, 208, 208, q0, "0");
+        Arrow a2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "1");
+        Arrow a3 = new Arrow(true, 408, 208, q1, "1");
 
         // Draw the objects
-        drawArrowLine(sa1);
+        drawArrowLine(a0);
         //q0
         drawState(q0);
-        drawArrowToItself(aa1);
+        drawArrowToItself(a1);
         // draw q0 -> q1 arrow
-        drawArrowLine(sa2);
+        drawArrowLine(a2);
         //q1
         drawState(q1);
-        drawArrowToItself(aa2);
-        // draw q1 -> q2 arrow
-        drawArrowLine(sa3);
-        //q2
-        drawState(q2);
-        drawArrowToItself(aa3);
+        drawArrowToItself(a3);
 
         // Create Test object
         ArrayList<Arrow> arrows = new ArrayList<>();
-        arrows.addAll(Arrays.asList(sa1, sa2, aa1, aa2, sa3, aa3));
+        arrows.addAll(Arrays.asList(a0, a1, a2, a3));
         ArrayList<State> states = new ArrayList<>();
-        states.addAll(Arrays.asList(q0, q1, q2));
+        states.addAll(Arrays.asList(q0, q1));
 
-        this.Test = new Test1(arrows, states, "0");
+        // Get input from input box
+        String input = TextAreaInput.getText();
+        System.out.println("Testing Test1 with given input: " + input);
+
+        // Create test object
+        this.Test = new Test1(arrows, states, input);
 
     }
     
@@ -181,38 +179,46 @@ public class Controller {
         State q4 = new State(true, 608, 10, 100, "q4");
 
         // Create arrows
-        Arrow sa0 = new Arrow(false, 100, 258, 196,  258, q0); //start  horizontal
-        Arrow sa1 = new Arrow(false, 318, 258, 396, 258, q0, q1, "b"); // q0 -> q1 horizontal
-        Arrow sa2 = new Arrow(false, 450, 200, 450, 122, q1, q2, "b"); // q1 -> q2
-        Arrow sa3 = new Arrow(false, 466, 118, 466, 196, q2, q1, "b"); // q2 -> q1
-        Arrow sa4 = new Arrow(false, 518, 258, 596, 258, q1, q3,"a"); // q1 -> q3 horizontal
-        Arrow sa5 = new Arrow(false, 650, 200, 650, 122, q3, q4,"a"); // q3 -> q4
-        Arrow sa6 = new Arrow(false, 666, 118, 666, 196, q4, q3, "a"); // q4 -> q3
+        Arrow a0 = new Arrow(false, 100, 258, 196,  258, q0); //start  horizontal
+        Arrow a1 = new Arrow(false, 318, 258, 396, 258, q0, q1, "b"); // q0 -> q1 horizontal
+        Arrow a2 = new Arrow(false, 450, 200, 450, 122, q1, q2, "b"); // q1 -> q2
+        Arrow a3 = new Arrow(false, 466, 118, 466, 196, q2, q1, "b"); // q2 -> q1
+        Arrow a4 = new Arrow(false, 518, 258, 596, 258, q1, q3,"a"); // q1 -> q3 horizontal
+        Arrow a5 = new Arrow(false, 650, 200, 650, 122, q3, q4,"a"); // q3 -> q4
+        Arrow a6 = new Arrow(false, 666, 118, 666, 196, q4, q3, "a"); // q4 -> q3
 
 
         // Draw the objects
-        drawArrowLine(sa0);
+        drawArrowLine(a0);
         
         //q0
         drawState(q0);
-        drawArrowLine(sa1);
+        drawArrowLine(a1);
         
         //q1
         drawState(q1);
-        drawArrowLine(sa2);
-        drawArrowLine(sa4);
+        drawArrowLine(a2);
+        drawArrowLine(a4);
         
         //q2
         drawState(q2);
-        drawArrowLine(sa3);
+        drawArrowLine(a3);
         
         //q3
         drawState(q3);
-        drawArrowLine(sa5);
+        drawArrowLine(a5);
         
         //q4
         drawState(q4);
-        drawArrowLine(sa6);
+        drawArrowLine(a6);
+
+        // Create Test object
+        ArrayList<Arrow> arrows = new ArrayList<>();
+        arrows.addAll(Arrays.asList(a0, a1, a2, a3, a4, a5, a6));
+        ArrayList<State> states = new ArrayList<>();
+        states.addAll(Arrays.asList(q0, q1, q2, q3, q4));
+
+//        this.Test = new Test2(arrows, states, "0");
     }
     
     public void drawTest3() {
@@ -227,26 +233,35 @@ public class Controller {
         State q1 = new State(false, 408, 208, 100, "q1");
         State q2 = new State(true, 608, 208, 100, "q2");
 
-        Arrow sa1 = new Arrow(false, 100, 258, 196, 258, q0);
-        Arrow sa2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "E");
-        Arrow aa1 = new Arrow(true, 208, 208, q0, "0");
-        Arrow aa2 = new Arrow(true, 408, 208, q1, "1");
-        Arrow sa3 = new Arrow(false, 516, 258, 597, 258, q1, q2, "0");
+        Arrow a0 = new Arrow(false, 100, 258, 196, 258, q0);
+        Arrow a1 = new Arrow(true, 208, 208, q0, "0");
+        Arrow a2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "E");
+        Arrow a3 = new Arrow(true, 408, 208, q1, "1");
+        Arrow a4 = new Arrow(false, 516, 258, 597, 258, q1, q2, "0");
 
         // Draw the objects
-        drawArrowLine(sa1);
+        drawArrowLine(a0);
         //q0
         drawState(q0);
-        drawArrowToItself(aa1);
+        drawArrowToItself(a1);
         // draw q0 -> q1 arrow
-        drawArrowLine(sa2);
+        drawArrowLine(a2);
         //q1
         drawState(q1);
-        drawArrowToItself(aa2);
+        drawArrowToItself(a3);
         // draw q1 -> q2 arrow
-        drawArrowLine(sa3);
+        drawArrowLine(a4);
         //q2
         drawState(q2);
+
+        // Create Test object
+        ArrayList<Arrow> arrows = new ArrayList<>();
+        arrows.addAll(Arrays.asList(a0, a1, a2, a3, a4));
+        ArrayList<State> states = new ArrayList<>();
+        states.addAll(Arrays.asList(q0, q1, q2));
+
+//        this.Test = new Test2(arrows, states, "0");
+
 
     }
     
@@ -257,22 +272,25 @@ public class Controller {
     public void clickNext() {
         // if complete, highlight last state
         System.out.println("hext is clicked");
-        if (this.Test.get_complete()) {
+        if (this.Test != null) {
+            if (this.Test.get_complete()) {
 
-            System.out.println("COMPLETE!!");
-            // Test.get_ending_state
-            // highlight the ending state
-        }
-        // if not complete, highlight next arrow
-        else {
-            System.out.println("evaluating next");
-            Arrow next = this.Test.evaluate_next();
-            if (next != null) {
-                removeHighlightArrow();
-                highlightArrow(next);
-                this.PrevArrow = next;
-            } else {
-                // at implicit reject state
+                System.out.println("COMPLETE!!");
+                TextAreaOutput.setText(TextAreaOutput.getText() + "Complete\n");
+                // Test.get_ending_state
+                // highlight the ending state
+            }
+            // if not complete, highlight next arrow
+            else {
+                System.out.println("evaluating next");
+                Arrow next = this.Test.evaluate_next();
+                if (next != null) {
+                    removeHighlightArrow();
+                    highlightArrow(next);
+                    this.PrevArrow = next;
+                } else {
+                    // at implicit reject state
+                }
             }
         }
     }
