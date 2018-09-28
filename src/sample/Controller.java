@@ -1,21 +1,13 @@
 package sample;
 
-import javafx.event.ActionEvent;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.ArcType;
 import javafx.scene.paint.Color;
-
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Controller {
     
@@ -24,7 +16,7 @@ public class Controller {
     public Canvas myCanvas;
     GraphicsContext GC;
 
-    public DFA Test;
+    public Graph Test;
 
     double DWidth = 5.0;
     Arrow PrevArrow = null;
@@ -268,7 +260,7 @@ public class Controller {
         String input = TextAreaInput.getText();
         System.out.println("Testing Test3 with given input: " + input);
 
-//        this.Test = new Test2(arrows, states, "0");
+        this.Test = new NFA(arrows, states, input);
 
     }
     
@@ -305,7 +297,6 @@ public class Controller {
                     removeHighlightArrow();
                     this.PrevArrow = null;
                     TextAreaOutput.setText(TextAreaOutput.getText() + "Move to implicit reject state\n");
-
                 }
             }
         }

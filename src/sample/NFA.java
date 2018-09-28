@@ -2,9 +2,9 @@ package sample;
 
 import java.util.ArrayList;
 
-public class DFA extends Graph {
+public class NFA extends Graph {
 
-    public DFA(ArrayList<Arrow> arrows, ArrayList<State> states, String input) {
+    public NFA(ArrayList<Arrow> arrows, ArrayList<State> states, String input) {
         this.arrows = arrows;
         this.states = states;
         this.input = input;
@@ -14,7 +14,8 @@ public class DFA extends Graph {
     }
 
     public Arrow evaluate_next() {
-        // check the current state; if this is the very beginning
+        // check the current state
+        // if this is the very beginning
         if (this.curr_state == null) {
             // get the starting arrow
             Arrow starting_arrow = get_starting_arrow();
@@ -47,14 +48,23 @@ public class DFA extends Graph {
 
     private Arrow get_next_arrow(State current_state, String evaluating_input) {
         // find the arrow that is from s, text of evaluating char
-        // System.out.println("Looking for next arrow from curr_state ->" + current_state.get_text() + "<-");
-        // System.out.println("    with arrow value of ->" + evaluating_input + "<-");
+//        System.out.println("Looking for next arrow from curr_state ->" + current_state.get_text() + "<-");
+//        System.out.println("    with arrow value of ->" + evaluating_input + "<-");
         for (Arrow a: this.arrows) {
             if (a.get_from_state() != null) {
-                // System.out.println("checking arrow from state: ->" + a.get_from_state().get_text() + "<-");
-                // System.out.println("    with arrow text: ->" + a.get_text() + "<-");
+//                System.out.println("checking arrow from state: ->" + a.get_from_state().get_text() + "<-");
+//                System.out.println("    with arrow text: ->" + a.get_text() + "<-");
                 if (a.get_from_state().get_text().equals(current_state.get_text()) && a.get_text().equals(evaluating_input)) {
                     System.out.println("found next arrow");
+                    return a;
+                }
+            }
+        }
+        // Look for epsilon arrows
+        for (Arrow a: this.arrows) {
+            if (a.get_from_state() != null) {
+                if (a.get_from_state().get_text().equals(current_state.get_text()) && a.get_text().equals("E")) {
+                    System.out.println("found next epsilon arrow");
                     return a;
                 }
             }
