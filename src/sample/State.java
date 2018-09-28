@@ -2,19 +2,9 @@ package sample;
 
 public class State {
 
-    boolean isAccept;
-    int x;
-    int y;
-    int size;
-    String text;
-
-    public State(boolean isAccept, int x, int y, int size) {
-        this.isAccept = isAccept;
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.text = "";
-    }
+    private boolean isAccept;
+    private int x, y, size;
+    private String text;
 
     public State(boolean isAccept, int x, int y, int size, String text) {
         this.isAccept = isAccept;
