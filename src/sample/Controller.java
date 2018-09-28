@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Controller {
-
+    
     public TextArea TextAreaInput;
     public TextArea TextAreaOutput;
     public Canvas myCanvas;
@@ -35,7 +35,7 @@ public class Controller {
         GC.setLineWidth(DWidth);
         GC.setFont(new Font(16));
     }
-
+    
     private void drawState(State q) {
         if (q.get_isAccept()) {
             drawAcceptState(q.get_x(), q.get_y(), q.get_size());
@@ -46,23 +46,23 @@ public class Controller {
             drawTextInCircle(q.get_x(), q.get_y(), q.get_size(), q.get_text());
         }
     }
-
+    
     private void drawAcceptState(int x, int y, int size) {
         GC.strokeOval(x, y, size, size);
         GC.strokeOval(x-8, y-8, size+16, size+16);
     }
-
+    
     private void drawRejectState(int x, int y, int size) {
         GC.strokeOval(x-8, y-8, size+16, size+16);
     }
-
+    
     private void drawTextInCircle(int x, int y, int size, String s) {
         GC.setLineWidth(1.0);
         GC.setFont(new Font("Arial", 24));
         GC.fillText(s, x+(size*0.4), y+(size*0.55));
         GC.setLineWidth(DWidth);
     }
-
+    
     private void drawArrowToItself(Arrow a) {
         int size = 100;
         GC.strokeArc(a.get_x1(), a.get_y1(), size, size, 320, 258, ArcType.OPEN);
@@ -73,18 +73,25 @@ public class Controller {
         GC.fillText(a.get_text(), a.get_x1()+(size*0.95), a.get_y1()+(size*0.2));
         GC.setLineWidth(DWidth);
     }
-
+    
     private void drawArrowLine(Arrow a) {
         GC.strokeLine(a.get_x1(), a.get_y1(), a.get_x2(), a.get_y2());
         GC.fillPolygon(a.get_x_points(), a.get_y_points(), a.get_num_points());
         if (!a.get_text().isEmpty()) {
             GC.setLineWidth(1.0);
             GC.setFont(new Font("Arial", 24));
-            GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)-20);
+            if(a.get_direction() == 'R')
+                GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)-20);
+            else if(a.get_direction() == 'U')
+                GC.fillText(a.get_text(), (((a.get_x1()+a.get_x2())/2)-30), (a.get_y1()+a.get_y2()+10)/2);
+            else if(a.get_direction() == 'D')
+                GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()+30)/2, ((a.get_y1()+a.get_y2())/2)+8);
+            else
+                GC.fillText(a.get_text(), (a.get_x1()+a.get_x2()-14)/2, ((a.get_y1()+a.get_y2())/2)+20);
             GC.setLineWidth(DWidth);
         }
     }
-
+    
     private void highlightArrow(Arrow a) {
         //set stroke color to red
         GC.setStroke(Color.RED);
@@ -115,10 +122,10 @@ public class Controller {
             }
         }
     }
-
+    
     public void drawTest1() {
         System.out.println("Drawing Test 1...");
-
+        
         // Initialize canvas
         initializeCanvas();
 
@@ -157,10 +164,12 @@ public class Controller {
         ArrayList<State> states = new ArrayList<>();
         states.addAll(Arrays.asList(q0, q1, q2));
 
-        this.Test = new Test1(arrows, states, "0010");
-    }
+        this.Test = new Test1(arrows, states, "0");
 
+    }
+    
     public void drawTest2() {
+        System.out.println("Drawing Test 2...");
         // Initialize canvas
         initializeCanvas();
 
@@ -171,7 +180,6 @@ public class Controller {
         State q3 = new State(false, 608, 208, 100, "q3");
         State q4 = new State(true, 608, 10, 100, "q4");
 
-
         // Create arrows
         Arrow sa0 = new Arrow(false, 100, 258, 196,  258, q0); //start  horizontal
         Arrow sa1 = new Arrow(false, 318, 258, 396, 258, q0, q1, "b"); // q0 -> q1 horizontal
@@ -180,6 +188,7 @@ public class Controller {
         Arrow sa4 = new Arrow(false, 518, 258, 596, 258, q1, q3,"a"); // q1 -> q3 horizontal
         Arrow sa5 = new Arrow(false, 650, 200, 650, 122, q3, q4,"a"); // q3 -> q4
         Arrow sa6 = new Arrow(false, 666, 118, 666, 196, q4, q3, "a"); // q4 -> q3
+
 
         // Draw the objects
         drawArrowLine(sa0);
@@ -205,11 +214,11 @@ public class Controller {
         drawState(q4);
         drawArrowLine(sa6);
     }
-
+    
     public void drawTest3() {
-
+        
         System.out.println("Drawing Test 3...");
-
+        
         // Initialize canvas
         initializeCanvas();
 
@@ -238,12 +247,13 @@ public class Controller {
         drawArrowLine(sa3);
         //q2
         drawState(q2);
-    }
 
+    }
+    
     public void clearCanvas() {
         initializeCanvas();
     }
-
+    
     public void clickNext() {
         // if complete, highlight last state
         System.out.println("hext is clicked");
