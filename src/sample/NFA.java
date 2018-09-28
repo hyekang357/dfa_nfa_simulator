@@ -11,6 +11,7 @@ public class NFA extends Graph {
         this.curr_state = null;
         this.input_index = -1;
         this.complete = false;
+        this.output_text = "";
     }
 
     public Arrow evaluate_next() {
@@ -25,6 +26,7 @@ public class NFA extends Graph {
             // set complete
             this.complete = check_complete(this.input, this.input_index);
             this.input_index++;
+            this.output_text = "Starting at state q0\n";
             return starting_arrow;
         } else {
             // Get input at index
@@ -34,12 +36,19 @@ public class NFA extends Graph {
             Arrow next_arrow = get_next_arrow(this.curr_state, evaluating_input);
             // if next_arrow is not null set curr_state, increment input_index, set_complete
             if (next_arrow != null) {
-                this.curr_state = next_arrow.get_to_state();
-                this.complete = check_complete(this.input, this.input_index);
-                this.input_index++;
+                if (!next_arrow.get_text().equals("E")) {
+                    this.complete = check_complete(this.input, this.input_index);
+                    this.input_index++;
+                    this.curr_state = next_arrow.get_to_state();
+                    this.output_text = "Evaluating input: " + evaluating_input + " --------------- Move to state: " + this.curr_state.get_text() + "\n" + this.output_text;
+                } else {
+                    this.curr_state = next_arrow.get_to_state();
+                    this.output_text = "Evaluating input: \'\' --------------- Move to state: " + this.curr_state.get_text() + "\n" + this.output_text;
+                }
                 return next_arrow;
             } else {
                 // if next_arrow not found then implicit reject state
+                this.output_text = "Evaluating input: " + evaluating_input + " --------------- Move to implicit reject state\n" + this.output_text;
                 set_implicit_reject_state();
                 return null;
             }
@@ -48,12 +57,8 @@ public class NFA extends Graph {
 
     private Arrow get_next_arrow(State current_state, String evaluating_input) {
         // find the arrow that is from s, text of evaluating char
-//        System.out.println("Looking for next arrow from curr_state ->" + current_state.get_text() + "<-");
-//        System.out.println("    with arrow value of ->" + evaluating_input + "<-");
         for (Arrow a: this.arrows) {
             if (a.get_from_state() != null) {
-//                System.out.println("checking arrow from state: ->" + a.get_from_state().get_text() + "<-");
-//                System.out.println("    with arrow text: ->" + a.get_text() + "<-");
                 if (a.get_from_state().get_text().equals(current_state.get_text()) && a.get_text().equals(evaluating_input)) {
                     System.out.println("found next arrow");
                     return a;

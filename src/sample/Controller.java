@@ -15,18 +15,21 @@ public class Controller {
     public TextArea TextAreaOutput;
     public Canvas myCanvas;
     GraphicsContext GC;
+    final double DWidth = 5.0;
 
     public Graph Test;
-
-    double DWidth = 5.0;
-    Arrow PrevArrow = null;
+    Arrow PrevArrow;
 
     private void initializeCanvas() {
         GC = myCanvas.getGraphicsContext2D();
         GC.clearRect(0, 0, 918.0, 483.0);
         GC.setLineWidth(DWidth);
         GC.setFont(new Font(16));
+        TextAreaOutput.setFont(new Font("Arial", 24));
         TextAreaOutput.setText("");
+
+        Test = null;
+        PrevArrow = null;
     }
     
     private void drawState(State q) {
@@ -277,12 +280,12 @@ public class Controller {
                 removeHighlightArrow();
                 State ending_state = this.Test.get_ending_state();
                 if (ending_state == null) {
-                    TextAreaOutput.setText(TextAreaOutput.getText() + "Ending at implicit reject state\n");
+                    TextAreaOutput.setText("Ending at implicit reject state\n" + TextAreaOutput.getText());
                 } else {
-                    TextAreaOutput.setText(TextAreaOutput.getText() + "Ending state: " + ending_state.get_text() + "\n");
-                    // highlight the ending state
+                    TextAreaOutput.setText("Ending state: " + ending_state.get_text() + "\n" + TextAreaOutput.getText());
+                    // TODO: highlight the ending state
                 }
-                TextAreaOutput.setText(TextAreaOutput.getText() + "Complete\n");
+                TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());
             }
             // if not complete, highlight next arrow
             else {
@@ -291,12 +294,13 @@ public class Controller {
                 if (next != null) {
                     removeHighlightArrow();
                     highlightArrow(next);
+                    TextAreaOutput.setText(this.Test.get_output_text());
                     this.PrevArrow = next;
                 } else {
                     // at implicit reject state
                     removeHighlightArrow();
+                    TextAreaOutput.setText(this.Test.get_output_text());
                     this.PrevArrow = null;
-                    TextAreaOutput.setText(TextAreaOutput.getText() + "Move to implicit reject state\n");
                 }
             }
         }

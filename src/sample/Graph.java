@@ -10,10 +10,12 @@ abstract class Graph {
     ArrayList<State> states;
     String input;
     int input_index;
+    String output_text;
 
     public abstract Arrow evaluate_next();
 
     public boolean get_complete() { return this.complete; }
+    public String get_output_text() { return this.output_text; }
 
     public State get_ending_state() {
         if (this.complete) {
