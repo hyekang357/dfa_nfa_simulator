@@ -2,7 +2,7 @@ package sample;
 
 import java.util.ArrayList;
 
-public class Test1 {
+public class DFA {
     private State curr_state;
     private boolean complete;
 
@@ -11,7 +11,7 @@ public class Test1 {
     private String input;
     private int input_index;
 
-    public Test1(ArrayList<Arrow> arrows, ArrayList<State> states, String input) {
+    public DFA(ArrayList<Arrow> arrows, ArrayList<State> states, String input) {
         this.arrows = arrows;
         this.states = states;
         this.input = input;

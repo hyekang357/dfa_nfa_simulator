@@ -24,7 +24,7 @@ public class Controller {
     public Canvas myCanvas;
     GraphicsContext GC;
 
-    public Test1 Test;
+    public DFA Test;
 
     double DWidth = 5.0;
     Arrow PrevArrow = null;
@@ -162,7 +162,7 @@ public class Controller {
         System.out.println("Testing Test1 with given input: " + input);
 
         // Create test object
-        this.Test = new Test1(arrows, states, input);
+        this.Test = new DFA(arrows, states, input);
 
     }
     
@@ -218,7 +218,11 @@ public class Controller {
         ArrayList<State> states = new ArrayList<>();
         states.addAll(Arrays.asList(q0, q1, q2, q3, q4));
 
-//        this.Test = new Test2(arrows, states, "0");
+        // Get input from input box
+        String input = TextAreaInput.getText();
+        System.out.println("Testing Test2 with given input: " + input);
+
+        this.Test = new DFA(arrows, states, input);
     }
     
     public void drawTest3() {
@@ -260,8 +264,11 @@ public class Controller {
         ArrayList<State> states = new ArrayList<>();
         states.addAll(Arrays.asList(q0, q1, q2));
 
-//        this.Test = new Test2(arrows, states, "0");
+        // Get input from input box
+        String input = TextAreaInput.getText();
+        System.out.println("Testing Test3 with given input: " + input);
 
+//        this.Test = new Test2(arrows, states, "0");
 
     }
     
@@ -274,11 +281,16 @@ public class Controller {
         System.out.println("hext is clicked");
         if (this.Test != null) {
             if (this.Test.get_complete()) {
-
                 System.out.println("COMPLETE!!");
+                removeHighlightArrow();
+                State ending_state = this.Test.get_ending_state();
+                if (ending_state == null) {
+                    TextAreaOutput.setText(TextAreaOutput.getText() + "Ending at implicit reject state\n");
+                } else {
+                    TextAreaOutput.setText(TextAreaOutput.getText() + "Ending state: " + ending_state.get_text() + "\n");
+                    // highlight the ending state
+                }
                 TextAreaOutput.setText(TextAreaOutput.getText() + "Complete\n");
-                // Test.get_ending_state
-                // highlight the ending state
             }
             // if not complete, highlight next arrow
             else {
@@ -290,6 +302,10 @@ public class Controller {
                     this.PrevArrow = next;
                 } else {
                     // at implicit reject state
+                    removeHighlightArrow();
+                    this.PrevArrow = null;
+                    TextAreaOutput.setText(TextAreaOutput.getText() + "Move to implicit reject state\n");
+
                 }
             }
         }
