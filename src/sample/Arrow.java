@@ -14,22 +14,23 @@ public class Arrow {
         char direction;
 
     public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2, State to_state){
-            this.x1 = x1;
-            this.x2 = x2;
-            this.y1 = y1;
-            this.y2 = y2;
-            this.arc_arrow = arc_arrow;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.arc_arrow = arc_arrow;
+        this.setArrowDirection(this.x1, this.y1, this.x2, this.y2);
 
-            if (arc_arrow) {
-                this.set_x_points_arc(this.x2);
-                this.set_y_points_arc(this.y2);
-            } else {
-                this.set_x_points_line(this.x2);
-                this.set_y_points_line(this.y2);
-            }
-            this.text = "";
-            this.from_state = null;
-            this.to_state = to_state;
+        if (arc_arrow) {
+            this.set_x_points_arc(this.x2);
+            this.set_y_points_arc(this.y2);
+        } else {
+            this.set_x_points_line(this.x2);
+            this.set_y_points_line(this.y2);
+        }
+        this.text = "";
+        this.from_state = null;
+        this.to_state = to_state;
     }
 
     public Arrow(boolean arc_arrow, int x1, int y1, int x2, int y2, State from_state, State to_state, String text){
@@ -48,6 +49,8 @@ public class Arrow {
             this.set_y_points_line(this.y2);
         }
         this.text = text;
+        this.from_state = from_state;
+        this.to_state = to_state;
     }
 
     public Arrow(boolean arc_arrow, int x1, int y1, State from_state, String text){
@@ -63,6 +66,9 @@ public class Arrow {
             this.set_y_points_line(this.y1);
         }
         this.text = text;
+
+        this.from_state = from_state;
+        this.to_state = from_state;
     }
     
     private void setArrowDirection (int x1, int y1, int x2, int y2){

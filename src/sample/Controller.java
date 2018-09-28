@@ -34,10 +34,6 @@ public class Controller {
         GC.clearRect(0, 0, 918.0, 483.0);
         GC.setLineWidth(DWidth);
         GC.setFont(new Font(16));
-        //        GC.strokeText("TL", 0, 10);
-        //        GC.strokeText("TR", 900, 10);
-        //        GC.strokeText("BL", 0, 477);
-        //        GC.strokeText("BR", 900, 477);
     }
     
     private void drawState(State q) {
