@@ -43,6 +43,20 @@ public class Controller {
         }
     }
     
+    private void highlightState(State q) {
+    	if (q != null) {
+	    	GC.setStroke(Color.RED);
+	        GC.setFill(Color.RED);
+	    	if (q.get_isAccept()) {
+	            drawAcceptState(q.get_x(), q.get_y(), q.get_size());
+	        } else {
+	            drawRejectState(q.get_x(), q.get_y(), q.get_size());
+	        }
+	        GC.setStroke(Color.BLACK);
+	        GC.setFill(Color.BLACK);
+    	}
+    }
+    
     private void drawAcceptState(int x, int y, int size) {
         GC.strokeOval(x, y, size, size);
         GC.strokeOval(x-8, y-8, size+16, size+16);
@@ -286,6 +300,7 @@ public class Controller {
                     // TODO: highlight the ending state
                 }
                 TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());
+                highlightState(ending_state);
             }
             // if not complete, highlight next arrow
             else {
