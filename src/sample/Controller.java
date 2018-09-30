@@ -297,10 +297,9 @@ public class Controller {
                     TextAreaOutput.setText("Ending at implicit reject state\n" + TextAreaOutput.getText());
                 } else {
                     TextAreaOutput.setText("Ending state: " + ending_state.get_text() + "\n" + TextAreaOutput.getText());
-                    // TODO: highlight the ending state
+                    highlightState(ending_state);
                 }
-                TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());
-                highlightState(ending_state);
+                TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());                
             }
             // if not complete, highlight next arrow
             else {
