@@ -43,6 +43,20 @@ public class Controller {
         }
     }
     
+    private void highlightState(State q) {
+    	if (q != null) {
+	    	GC.setStroke(Color.RED);
+	        GC.setFill(Color.RED);
+	    	if (q.get_isAccept()) {
+	            drawAcceptState(q.get_x(), q.get_y(), q.get_size());
+	        } else {
+	            drawRejectState(q.get_x(), q.get_y(), q.get_size());
+	        }
+	        GC.setStroke(Color.BLACK);
+	        GC.setFill(Color.BLACK);
+    	}
+    }
+    
     private void drawAcceptState(int x, int y, int size) {
         GC.strokeOval(x, y, size, size);
         GC.strokeOval(x-8, y-8, size+16, size+16);
@@ -292,9 +306,9 @@ public class Controller {
                     TextAreaOutput.setText("Ending at implicit reject state\n" + TextAreaOutput.getText());
                 } else {
                     TextAreaOutput.setText("Ending state: " + ending_state.get_text() + "\n" + TextAreaOutput.getText());
-                    // TODO: highlight the ending state
+                    highlightState(ending_state);
                 }
-                TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());
+                TextAreaOutput.setText("Complete\n" + TextAreaOutput.getText());                
             }
             // if not complete, highlight next arrow
             else {
