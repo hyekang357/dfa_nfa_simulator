@@ -125,15 +125,18 @@ public class Controller {
         // Initialize canvas
         initializeCanvas();
 
+        int x = ((int) (GC.getCanvas().getWidth() / 2)) - 300;
+        int y = 0;
+        
         // Create states
-        State q0 = new State(true, 208, 208, 100, "q0");
-        State q1 = new State(true, 408, 208, 100, "q1");
+        State q0 = new State(true, 208 + x, 208 + y, 100, "q0");
+        State q1 = new State(true, 408 + x, 208 + y, 100, "q1");
 
         // Create arrows
-        Arrow a0 = new Arrow(false, 100, 258, 196, 258, q0);
-        Arrow a1 = new Arrow(true, 208, 208, q0, "0");
-        Arrow a2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "1");
-        Arrow a3 = new Arrow(true, 408, 208, q1, "1");
+        Arrow a0 = new Arrow(false, 100 + x, 258 + y, 196 + x, 258 + y, q0);
+        Arrow a1 = new Arrow(true, 208 + x, 208 + y, q0, "0");
+        Arrow a2 = new Arrow(false, 318 + x, 258 + y, 396 + x, 258 + y, q0, q1, "1");
+        Arrow a3 = new Arrow(true, 408 + x, 208 + y, q1, "1");
 
         // Draw the objects
         drawArrowLine(a0);
@@ -166,21 +169,24 @@ public class Controller {
         // Initialize canvas
         initializeCanvas();
 
+        int x = ((int) (GC.getCanvas().getWidth() / 2)) - 400;
+        int y = ((int) (GC.getCanvas().getHeight() / 2)) - 165;
+        
         // Create states
-        State q0 = new State(false, 208, 208, 100, "q0");
-        State q1 = new State(true, 408, 208, 100, "q1");
-        State q2 = new State(false, 408, 10, 100, "q2");
-        State q3 = new State(false, 608, 208, 100, "q3");
-        State q4 = new State(true, 608, 10, 100, "q4");
+        State q0 = new State(false, 208 + x, 208 + y, 100, "q0");
+        State q1 = new State(true, 408 + x, 208 + y, 100, "q1");
+        State q2 = new State(false, 408 + x, 10 + y, 100, "q2");
+        State q3 = new State(false, 608 + x, 208 + y, 100, "q3");
+        State q4 = new State(true, 608 + x, 10 + y, 100, "q4");
 
         // Create arrows
-        Arrow a0 = new Arrow(false, 100, 258, 196,  258, q0); //start  horizontal
-        Arrow a1 = new Arrow(false, 318, 258, 396, 258, q0, q1, "b"); // q0 -> q1 horizontal
-        Arrow a2 = new Arrow(false, 450, 200, 450, 122, q1, q2, "b"); // q1 -> q2
-        Arrow a3 = new Arrow(false, 466, 118, 466, 196, q2, q1, "b"); // q2 -> q1
-        Arrow a4 = new Arrow(false, 518, 258, 596, 258, q1, q3,"a"); // q1 -> q3 horizontal
-        Arrow a5 = new Arrow(false, 650, 200, 650, 122, q3, q4,"a"); // q3 -> q4
-        Arrow a6 = new Arrow(false, 666, 118, 666, 196, q4, q3, "a"); // q4 -> q3
+        Arrow a0 = new Arrow(false, 100 + x, 258 + y, 196 + x, 258 + y, q0); //start  horizontal
+        Arrow a1 = new Arrow(false, 318 + x, 258 + y, 396 + x, 258 + y, q0, q1, "b"); // q0 -> q1 horizontal
+        Arrow a2 = new Arrow(false, 450 + x, 200 + y, 450 + x, 122 + y, q1, q2, "b"); // q1 -> q2
+        Arrow a3 = new Arrow(false, 466 + x, 118 + y, 466 + x, 196 + y, q2, q1, "b"); // q2 -> q1
+        Arrow a4 = new Arrow(false, 518 + x, 258 + y, 596 + x, 258 + y, q1, q3,"a"); // q1 -> q3 horizontal
+        Arrow a5 = new Arrow(false, 650 + x, 200 + y, 650 + x, 122 + y, q3, q4,"a"); // q3 -> q4
+        Arrow a6 = new Arrow(false, 666 + x, 118 + y, 666 + x, 196 + y, q4, q3, "a"); // q4 -> q3
 
 
         // Draw the objects
@@ -227,16 +233,19 @@ public class Controller {
         // Initialize canvas
         initializeCanvas();
 
+        int x = 50;
+        int y = 0;
+        
         // Create states
-        State q0 = new State(false, 208, 208, 100, "q0");
-        State q1 = new State(false, 408, 208, 100, "q1");
-        State q2 = new State(true, 608, 208, 100, "q2");
+        State q0 = new State(false, 208 + x, 208 + y, 100, "q0");
+        State q1 = new State(false, 408 + x, 208 + y, 100, "q1");
+        State q2 = new State(true, 608 + x, 208 + y, 100, "q2");
 
-        Arrow a0 = new Arrow(false, 100, 258, 196, 258, q0);
-        Arrow a1 = new Arrow(true, 208, 208, q0, "0");
-        Arrow a2 = new Arrow(false, 318, 258, 396, 258, q0, q1, "E");
-        Arrow a3 = new Arrow(true, 408, 208, q1, "1");
-        Arrow a4 = new Arrow(false, 516, 258, 597, 258, q1, q2, "0");
+        Arrow a0 = new Arrow(false, 100 + x, 258 + y, 196 + x, 258 + y, q0);
+        Arrow a1 = new Arrow(true, 208 + x, 208 + y, q0, "0");
+        Arrow a2 = new Arrow(false, 318 + x, 258 + y, 396 + x, 258 + y, q0, q1, "E");
+        Arrow a3 = new Arrow(true, 408 + x, 208 + y, q1, "1");
+        Arrow a4 = new Arrow(false, 516 + x, 258 + y, 597 + x, 258 + y, q1, q2, "0");
 
         // Draw the objects
         drawArrowLine(a0);
